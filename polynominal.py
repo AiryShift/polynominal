@@ -109,4 +109,13 @@ def find_root(poly, a, b):
 
 
 if __name__ == '__main__':
-    print(parse_poly(input('Enter a polynominal: ')))
+    poly = parse_poly(input('Enter a polynominal: '))
+    print('You entered a polynominal: {}'.format(poly))
+    print('Finding roots to precision of 5 decimal places')
+
+    a = b = 1
+    while a and b:
+        print('Find a root between...')
+        a = input('a: ')
+        b = input('b: ')
+        print(find_root(poly, a, b))
