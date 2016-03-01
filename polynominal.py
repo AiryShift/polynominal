@@ -12,6 +12,12 @@ class Term():
     def evaluate(self, value):
         return value**self.power * self.coefficient
 
+    def __str__(self):
+        return '{}x{}'.format(self.coefficient, self.power)
+
+    def __repr__(self):
+        return 'Term({})'.format(self.__str__())
+
 
 class Polynominal():
     def __init__(self, *terms):
@@ -22,6 +28,12 @@ class Polynominal():
         for term in self.terms:
             result += term.evaluate(value)
         return result
+
+    def __str__(self):
+        return ' '.join(str(i) for i in self.terms)
+
+    def __repr__(self):
+        return 'Polynominal({})'.format(self.__str__())
 
 
 def parse_term(term, sign):
