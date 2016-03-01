@@ -41,19 +41,41 @@ def parse_term(term, sign):
         term = term.split('x')
     else:
         term = [term]
-    coefficient = int(term[0])
-    power = 0
-    if len(term) == 2:
-        power = int(term[1])
 
+    coefficient = 1
+    if term[0] != '':
+        coefficient = float(term[0])
+
+    power = 1
+    if len(term) == 2 and term[1] != '':
+        power = int(term[1])
+    elif len(term) == 1:
+        power = 0
+
+    if sign == NEGATIVE:
+        coefficient *= -1
+    return Term(coefficient, power)
 
 
 def parse_poly(poly):
-    """
-    Format:
-    """
     poly = re.split(r'([-\+])', poly)
-    return poly
+    poly = [i.strip() for i in poly]
+    processed = []
+
+    # process first term by itself
+    first_term = poly[0]
+    if first_term[0] == '-':
+        first_term = parse_term(first_term[:1], NEGATIVE)
+    else:
+        first_term = parse_term(first_term, POSITIVE)
+    processed.append(first_term)
+
+    # process the remainder
+    for i in range(1, len(poly), 2):
+        sign = POSITIVE if poly[i] == '+' else NEGATIVE
+        term = poly[i + 1]
+        processed.append(parse_term(term, sign))
+    return Polynominal(processed)
 
 
 if __name__ == '__main__':
