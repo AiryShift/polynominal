@@ -7,10 +7,9 @@ Run root_finder.py and follow instructions to use
 Have some EBNF
 ```
 digit = "0" | 1" | "2" | "3" | "4" | "5" | "6" | "7" | "8" | "9" ;
-number = digit, {digit} ;
+integer = {digit} ;
+decimal number = {digit}, digit, ".", {digit} | {digit}, ".", digit, {digit} | integer ;
 sign = "+" | "-" ;
-coefficient = [number] ;
-power = [number] ;
-term = sign, { " " }, coefficient, "x", power ;
-polynomial = [ sign ], coefficient, "x", power, { { " " }, term } ;
+term = decimal number, "x", integer | decimal number ;
+polynomial = [ sign ], term, { { " " }, sign, { " " }, term } ;
 ```
