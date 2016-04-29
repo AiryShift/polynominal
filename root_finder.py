@@ -1,8 +1,9 @@
 from polynominal import parse_poly
+EPS = 1e-5
 
 
 def same_sign(a, b):
-    return a > 0 and b > 0 or a < 0 and b < 0
+    return a * b > 0
 
 
 def find_root(poly, a, b):
@@ -12,7 +13,7 @@ def find_root(poly, a, b):
     if same_sign(poly.evaluate(a), poly.evaluate(b)):
         return 'No confirmed root between {} and {}'.format(a, b)
 
-    while round(a, 5) != round(b, 5):
+    while a - b > EPS:
         y_a, y_b = poly.evaluate(a), poly.evaluate(b)
         middle = (a + b) / 2
         y_middle = poly.evaluate(middle)
